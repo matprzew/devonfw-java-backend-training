@@ -2,6 +2,7 @@ package com.devonfw.app.java.order.orderservice.dataaccess.api;
 
 import java.util.Set;
 
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.devonfw.app.java.order.general.dataaccess.api.ApplicationPersistenceEntity;
@@ -10,6 +11,7 @@ import com.devonfw.app.java.order.orderservice.common.api.Customer;
 /**
  * @author MPRZEWOZ
  */
+@Entity(name = "Customer")
 public class CustomerEntity extends ApplicationPersistenceEntity implements Customer {
 
   private String firstname;
@@ -19,6 +21,13 @@ public class CustomerEntity extends ApplicationPersistenceEntity implements Cust
   private Set<OrderEntity> orders;
 
   private static final long serialVersionUID = 1L;
+
+  /**
+   * The constructor.
+   */
+  public CustomerEntity() {
+
+  }
 
   /**
    * @return firstname
@@ -60,6 +69,11 @@ public class CustomerEntity extends ApplicationPersistenceEntity implements Cust
   public Set<OrderEntity> getOrders() {
 
     return this.orders;
+  }
+
+  public void setOrders(Set<OrderEntity> orders) {
+
+    this.orders = orders;
   }
 
 }
