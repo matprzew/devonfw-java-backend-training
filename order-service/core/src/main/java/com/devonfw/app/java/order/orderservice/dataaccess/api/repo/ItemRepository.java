@@ -1,33 +1,31 @@
 package com.devonfw.app.java.order.orderservice.dataaccess.api.repo;
 
 import static com.querydsl.core.alias.Alias.$;
+
 import java.util.Iterator;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
+
 import com.devonfw.app.java.order.orderservice.dataaccess.api.ItemEntity;
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemSearchCriteriaTo;
 import com.devonfw.module.basic.common.api.query.LikePatternSyntax;
 import com.devonfw.module.jpa.dataaccess.api.QueryUtil;
 import com.devonfw.module.jpa.dataaccess.api.data.DefaultRepository;
 import com.querydsl.jpa.impl.JPAQuery;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import com.devonfw.app.java.order.orderservice.common.api.Item;
 
 /**
  * @author MPRZEWOZ
  */
 public interface ItemRepository extends DefaultRepository<ItemEntity> {
 
-	/**
-	 * @param criteria
-	 * @return Page<ItemEntity>
-	 */
-	default Page<ItemEntity> findByCriteria(ItemSearchCriteriaTo criteria) {
+  /**
+   * @param criteria
+   * @return Page<ItemEntity>
+   */
+  default Page<ItemEntity> findByCriteria(ItemSearchCriteriaTo criteria) {
 
     ItemEntity alias = newDslAlias();
     JPAQuery<ItemEntity> query = newDslQuery(alias);
@@ -49,14 +47,14 @@ public interface ItemRepository extends DefaultRepository<ItemEntity> {
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, true);
   }
 
-	/**
-	 * Add sorting to the given query on the given alias
-	 *
-	 * @param query to add sorting to
-	 * @param alias to retrieve columns from for sorting
-	 * @param sort specification of sorting
-	 */
-	public default void addOrderBy(JPAQuery<ItemEntity> query, ItemEntity alias, Sort sort) {
+  /**
+   * Add sorting to the given query on the given alias
+   *
+   * @param query to add sorting to
+   * @param alias to retrieve columns from for sorting
+   * @param sort specification of sorting
+   */
+  public default void addOrderBy(JPAQuery<ItemEntity> query, ItemEntity alias, Sort sort) {
 
     if (sort != null && sort.isSorted()) {
       Iterator<Order> it = sort.iterator();
@@ -91,18 +89,25 @@ public interface ItemRepository extends DefaultRepository<ItemEntity> {
     }
   }
 
-	default Page<ItemEntity> findByName(ItemSearchCriteriaTo criteria) {
+  default Page<ItemEntity> findByName(ItemSearchCriteriaTo criteria) {
 
     ItemEntity alias = newDslAlias();
     JPAQuery<ItemEntity> query = newDslQuery(alias);
     String name = criteria.getName();
     if (name != null && !name.isEmpty()) {
-      QueryUtil.get().whereLike(query, $(alias.getName()), "*" + criteria.getName() + "*", LikePatternSyntax.GLOB, true,
-          true);
+      QueryUtil.get().whereLike(query, $(alias.getName()), criteria.getName(), LikePatternSyntax.GLOB, true, true);
 
       addOrderBy(query, alias, criteria.getPageable().getSort());
     }
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, true);
   }
 
+  public ItemEntity findByName(String name);
+
+  default ItemEntity changeItemsPrice(String name, Double price) {
+
+    ItemEntity itemFromDB = findByName(name);
+    itemFromDB.setPrice(price);
+    return save(itemFromDB);
+  }
 }

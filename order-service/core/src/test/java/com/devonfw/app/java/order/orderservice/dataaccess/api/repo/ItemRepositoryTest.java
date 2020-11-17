@@ -81,7 +81,7 @@ public class ItemRepositoryTest extends ComponentTest {
     List<ItemEntity> foundItems = this.itemRepository.findAll();
 
     // then
-    assertThat(foundItems).hasSize(47);
+    assertThat(foundItems).hasSize(45);
   }
 
   @Test
@@ -130,17 +130,25 @@ public class ItemRepositoryTest extends ComponentTest {
     Sort sort = Sort.by("name");
     Pageable pageable = PageRequest.of(0, 20, sort);
     ItemSearchCriteriaTo criteria = new ItemSearchCriteriaTo();
-    criteria.setName("saus");
-    ;
+    criteria.setName("pot");
     criteria.setPageable(pageable);
     // when
-    Page<ItemEntity> foundItems = this.itemRepository.findByCriteria(criteria);
+    Page<ItemEntity> foundItems = this.itemRepository.findByName(criteria);
 
     // then
     assertThat(foundItems).hasSize(20);
     assertThat(foundItems.stream().findFirst().get().getName()).isEqualTo("Potato0");
     assertThat(foundItems.stream().allMatch(c -> c.getName().contains("Potato"))).isTrue();
 
+  }
+
+  @Test
+  public void shouldChangePotato0PriceTo22() {
+
+    // when
+    ItemEntity item = this.itemRepository.changeItemsPrice("Potato0", 22.00);
+    // then
+    assertThat(item.getPrice()).isEqualTo(22.00);
   }
 
   // TODO use description
