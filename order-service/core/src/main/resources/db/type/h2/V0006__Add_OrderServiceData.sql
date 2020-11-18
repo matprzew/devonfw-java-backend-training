@@ -13,3 +13,7 @@ INSERT INTO Customer(id, ModificationCounter, firstname, lastname) VALUES (61, 0
 INSERT INTO OrderSummary(id, ModificationCounter, price, ownerId, creationDate, status) VALUES (71, 0, 171.10, 61, '2020-03-15', 'SERVED');
 
 INSERT INTO OrderPosition(orderId, itemId) VALUES (71, 51);
+
+INSERT INTO Item(id, ModificationCounter, name, description, price) VALUES (22, 0, 'spaghetti carbonara', 'Italy', 200);
+
+INSERT INTO Item(id, ModificationCounter, name, description, price) VALUES (23, 0, 'spaghetti', 'Italy', 150);

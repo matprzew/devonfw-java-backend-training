@@ -2,61 +2,58 @@ package com.devonfw.app.java.order.orderservice.logic.api.to;
 
 import com.devonfw.app.java.order.orderservice.common.api.Item;
 import com.devonfw.module.basic.common.api.to.AbstractEto;
-import com.devonfw.module.basic.common.api.entity.PersistenceEntity;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Entity transport object of Item
  */
 public class ItemEto extends AbstractEto implements Item {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String description;
+  private String description;
 
-	private String name;
+  private String name;
 
-	private Double price;
+  private Double price;
 
-	@Override
-	public String getDescription() {
+  @Override
+  public String getDescription() {
 
     return description;
   }
 
-	@Override
-	public void setDescription(String description) {
+  @Override
+  public void setDescription(String description) {
 
     this.description = description;
   }
 
-	@Override
-	public String getName() {
+  @Override
+  public String getName() {
 
     return name;
   }
 
-	@Override
-	public void setName(String name) {
+  @Override
+  public void setName(String name) {
 
     this.name = name;
   }
 
-	@Override
-	public Double getPrice() {
+  @Override
+  public Double getPrice() {
 
     return price;
   }
 
-	@Override
-	public void setPrice(Double price) {
+  @Override
+  public void setPrice(Double price) {
 
     this.price = price;
   }
 
-	@Override
-	public int hashCode() {
+  @Override
+  public int hashCode() {
 
     final int prime = 31;
     int result = super.hashCode();
@@ -66,8 +63,8 @@ public class ItemEto extends AbstractEto implements Item {
     return result;
   }
 
-	@Override
-	public boolean equals(Object obj) {
+  @Override
+  public boolean equals(Object obj) {
 
     if (this == obj) {
       return true;
@@ -103,5 +100,4 @@ public class ItemEto extends AbstractEto implements Item {
     }
     return true;
   }
-
 }

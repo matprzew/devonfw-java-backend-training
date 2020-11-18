@@ -3,6 +3,7 @@ package com.devonfw.app.java.order.orderservice.dataaccess.api.repo;
 import static com.querydsl.core.alias.Alias.$;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -89,7 +90,7 @@ public interface ItemRepository extends DefaultRepository<ItemEntity> {
     }
   }
 
-  default Page<ItemEntity> findByName(ItemSearchCriteriaTo criteria) {
+  default Page<ItemEntity> findByNameLike(ItemSearchCriteriaTo criteria) {
 
     ItemEntity alias = newDslAlias();
     JPAQuery<ItemEntity> query = newDslQuery(alias);
@@ -103,6 +104,8 @@ public interface ItemRepository extends DefaultRepository<ItemEntity> {
   }
 
   public ItemEntity findByName(String name);
+
+  public Set<ItemEntity> findByNameContainingIgnoreCase(String name);
 
   default ItemEntity changeItemsPrice(String name, Double price) {
 

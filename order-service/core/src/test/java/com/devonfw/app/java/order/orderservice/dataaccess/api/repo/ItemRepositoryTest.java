@@ -133,7 +133,7 @@ public class ItemRepositoryTest extends ComponentTest {
     criteria.setName("pot");
     criteria.setPageable(pageable);
     // when
-    Page<ItemEntity> foundItems = this.itemRepository.findByName(criteria);
+    Page<ItemEntity> foundItems = this.itemRepository.findByNameLike(criteria);
 
     // then
     assertThat(foundItems).hasSize(20);
