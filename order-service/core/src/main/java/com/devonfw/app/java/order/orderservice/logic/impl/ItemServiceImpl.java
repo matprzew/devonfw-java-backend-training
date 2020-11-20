@@ -2,11 +2,13 @@ package com.devonfw.app.java.order.orderservice.logic.impl;
 
 import java.util.Set;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.data.domain.Page;
 
+import com.devonfw.app.java.order.general.common.api.security.ApplicationAccessControlConfig;
 import com.devonfw.app.java.order.general.logic.base.AbstractComponentFacade;
 import com.devonfw.app.java.order.orderservice.logic.api.ItemService;
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemEto;
@@ -63,6 +65,7 @@ public class ItemServiceImpl extends AbstractComponentFacade implements ItemServ
   }
 
   @Override
+  @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_FIND_ITEM)
   public Set<ItemEto> findItemsLike(String name) {
 
     return this.ucFindItem.findItemsLike(name);

@@ -7,9 +7,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.http.util.Asserts;
+import org.springframework.data.domain.Page;
 
 import com.devonfw.app.java.order.orderservice.logic.api.ItemService;
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemEto;
+import com.devonfw.app.java.order.orderservice.logic.api.to.ItemSearchCriteriaTo;
 import com.devonfw.app.java.order.orderservice.service.api.rest.ItemServiceRestService;
 
 /**
@@ -48,16 +50,17 @@ public class ItemServiceRestServiceImpl implements ItemServiceRestService {
     return this.itemService.findItemsLike(name);
   }
 
-  // @Override
-  // public Page<ItemEto> findItems(ItemSearchCriteriaTo criteria) {
-  //
-  // return null;
-  // }
-
   @Override
   public ItemEto saveItem(ItemEto item) {
 
     return this.itemService.saveItem(item);
+  }
+
+  @Override
+  public Page<ItemEto> findItems(ItemSearchCriteriaTo criteria) {
+
+    return this.itemService.findItems(criteria);
+
   }
 
 }

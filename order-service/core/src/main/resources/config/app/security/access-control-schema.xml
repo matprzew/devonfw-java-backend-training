@@ -2,9 +2,36 @@
 <access-control-schema>
   <group id="ReadMasterData" type="group">
     <permissions>
-      
+      <permission id="FindItem"/>
+    </permissions>
+  </group>
+  <group id="Customer" type="role">
+    <inherits>
+      <group-ref>ReadMasterData</group-ref>
+    </inherits>
+    <permissions>
+      <permission id="FindOrder"/>
+      <permission id="CreateOrder"/>
+      <permission id="DeleteOrder"/>
+    </permissions>
+  </group>
+  <group id="Employee" type="role">
+    <inherits>
+      <group-ref>Customer</group-ref>
+    </inherits>
+    <permissions>
+      <permission id="AddItem"/>
+      <permission id="RemoveItem"/>
+    </permissions>
+  </group>
+  <group id="Admin" type="role">
+    <inherits>
+      <group-ref>Customer</group-ref>
+    </inherits>
+    <permissions>
+      <permission id="RemoveCustomer"/>
     </permissions>
   </group>
 
-  
+
 </access-control-schema>

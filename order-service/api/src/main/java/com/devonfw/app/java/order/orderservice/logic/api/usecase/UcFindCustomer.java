@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerCto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerSearchCriteriaTo;
 
@@ -24,5 +25,21 @@ public interface UcFindCustomer {
    * @return the {@link List} of matching {@link CustomerEto}s.
    */
   Page<CustomerEto> findCustomers(CustomerSearchCriteriaTo criteria);
+
+  /**
+   * Returns a composite Customer by its id 'id'.
+   *
+   * @param id The id 'id' of the Customer.
+   * @return The {@link CustomerCto} with id 'id'
+   */
+  CustomerCto findCustomerCto(long id);
+
+  /**
+   * Returns a paginated list of composite Customers matching the search criteria.
+   *
+   * @param criteria the {@link CustomerSearchCriteriaTo}.
+   * @return the {@link List} of matching {@link CustomerCto}s.
+   */
+  Page<CustomerCto> findCustomerCtos(CustomerSearchCriteriaTo criteria);
 
 }

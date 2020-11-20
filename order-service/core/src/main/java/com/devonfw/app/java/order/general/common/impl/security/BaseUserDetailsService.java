@@ -19,8 +19,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.devonfw.app.java.order.general.common.api.security.ApplicationAccessControlConfig;
 import com.devonfw.module.security.common.api.accesscontrol.AccessControl;
-import com.devonfw.module.security.common.api.accesscontrol.AccessControlProvider;
 import com.devonfw.module.security.common.base.accesscontrol.AccessControlGrantedAuthority;
 
 /**
@@ -36,7 +36,7 @@ public class BaseUserDetailsService implements UserDetailsService {
 
   private AuthenticationManagerBuilder amBuilder;
 
-  private AccessControlProvider accessControlProvider;
+  private ApplicationAccessControlConfig accessControlProvider;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -82,8 +82,9 @@ public class BaseUserDetailsService implements UserDetailsService {
   private Collection<String> getRoles(String username) {
 
     Collection<String> roles = new ArrayList<>();
-    // TODO for a reasonable application you need to retrieve the roles of the user from a central IAM system
-    roles.add(username);
+    // TODOfor a reasonable application you need to retrieve the roles of the user from a central IAM system
+    getAmBuilder().getDefaultUserDetailsService().loadUserByUsername(username).getAuthorities().stream()
+        .forEach(c -> roles.add(c.toString()));
     return roles;
   }
 
@@ -107,7 +108,7 @@ public class BaseUserDetailsService implements UserDetailsService {
   /**
    * @return accessControlProvider
    */
-  public AccessControlProvider getAccessControlProvider() {
+  public ApplicationAccessControlConfig getAccessControlProvider() {
 
     return this.accessControlProvider;
   }
@@ -116,7 +117,7 @@ public class BaseUserDetailsService implements UserDetailsService {
    * @param accessControlProvider new value of {@link #getAccessControlProvider}.
    */
   @Inject
-  public void setAccessControlProvider(AccessControlProvider accessControlProvider) {
+  public void setAccessControlProvider(ApplicationAccessControlConfig accessControlProvider) {
 
     this.accessControlProvider = accessControlProvider;
   }

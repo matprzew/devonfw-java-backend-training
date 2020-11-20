@@ -11,9 +11,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.devonfw.app.java.order.orderservice.logic.api.to.ItemEto;
+import com.devonfw.app.java.order.orderservice.logic.api.to.ItemSearchCriteriaTo;
 import com.devonfw.module.rest.common.api.RestService;
 
 /**
@@ -41,9 +43,9 @@ public interface ItemServiceRestService extends RestService {
   @Path("/items/name/{name}")
   public Set<ItemEto> findItemsLike(@PathParam("name") String name);
 
-  // @GET
-  // @Path("/items/{criteria}")
-  // public Page<ItemEto> findItems(@PathParam("criteria") ItemSearchCriteriaTo criteria);
+  @GET
+  @Path("/items/search")
+  public Page<ItemEto> findItems(@RequestBody ItemSearchCriteriaTo criteria);
 
   @PUT
   @Path("/items")

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import com.devonfw.app.java.order.general.logic.base.AbstractComponentFacade;
 import com.devonfw.app.java.order.orderservice.common.api.OrderStatus;
 import com.devonfw.app.java.order.orderservice.logic.api.Orderservice;
+import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerCto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerEto;
 import com.devonfw.app.java.order.orderservice.logic.api.to.CustomerSearchCriteriaTo;
 import com.devonfw.app.java.order.orderservice.logic.api.to.OrderCto;
@@ -97,6 +98,30 @@ public class OrderserviceImpl extends AbstractComponentFacade implements Orderse
   public OrderCto saveOrderWithItemsAndOwner(OrderCto order) {
 
     return this.ucManageOrder.saveOrderWithItemsAndOwner(order);
+  }
+
+  @Override
+  public OrderCto findOrderCto(long id) {
+
+    return ucFindOrder.findOrderCto(id);
+  }
+
+  @Override
+  public Page<OrderCto> findOrderCtos(OrderSearchCriteriaTo criteria) {
+
+    return ucFindOrder.findOrderCtos(criteria);
+  }
+
+  @Override
+  public CustomerCto findCustomerCto(long id) {
+
+    return ucFindCustomer.findCustomerCto(id);
+  }
+
+  @Override
+  public Page<CustomerCto> findCustomerCtos(CustomerSearchCriteriaTo criteria) {
+
+    return ucFindCustomer.findCustomerCtos(criteria);
   }
 
 }
